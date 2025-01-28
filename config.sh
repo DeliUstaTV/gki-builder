@@ -18,7 +18,7 @@ export DEFCONFIG="gki_defconfig"
 export KERNEL_IMAGE="$WORKDIR/out/arch/arm64/boot/Image"
 
 # Releases repository
-export GKI_RELEASES_REPO="https://github.com/hazepynut/quartix-releases"
+export GKI_RELEASES_REPO="https://github.com/DeliUstaTV/GKI_RELEASES_REPO"
 
 # AOSP Clang
 export USE_AOSP_CLANG="false"
