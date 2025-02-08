@@ -17,7 +17,7 @@ export KERNEL_BRANCH="master"
 export KERNEL_DEFCONFIG="gki_defconfig"
 
 # Releases repository
-export GKI_RELEASES_REPO="https://github.com/hazepynut/quartix-releases"
+export GKI_RELEASES_REPO="https://github.com/DeliUstaTV/GKI_RELEASES_REPO"
 
 # AOSP Clang
 export USE_AOSP_CLANG="false"
