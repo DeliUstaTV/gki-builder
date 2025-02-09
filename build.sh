@@ -22,7 +22,8 @@ fi
 mkdir -p android-kernel && cd android-kernel
 
 WORKDIR=$(pwd)
-source $WORKDIR/../config.sh
+BUILDERDIR=$WORKDIR/..
+source $BUILDERDIR/config.sh
 
 # ------------------
 # Telegram functions
@@ -209,8 +210,30 @@ send_msg "$text"
 cd $WORKDIR/common
 set +e
 (
-    make ARCH=arm64 LLVM=1 LLVM_IAS=1 O=$WORKDIR/out CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_COMPAT=arm-linux-gnueabi- $KERNEL_DEFCONFIG
-    make ARCH=arm64 LLVM=1 LLVM_IAS=1 O=$WORKDIR/out CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_COMPAT=arm-linux-gnueabi- -j$(nproc --all) Image $([ $STATUS == "STABLE" ] && echo "Image.lz4 Image.gz")
+    make \
+    ARCH=arm64 \
+    LLVM=1 \
+    LLVM_IAS=1 \
+    CC="ccache clang" \
+    HOSTCC="ccache clang" \
+    HOSTCXX="ccache clang++" \
+    O=$WORKDIR/out \
+    CROSS_COMPILE=aarch64-linux-gnu- \
+    CROSS_COMPILE_COMPAT=arm-linux-gnueabi- \
+    $KERNEL_DEFCONFIG
+
+    make \
+    ARCH=arm64 \
+    LLVM=1 \
+    LLVM_IAS=1 \
+    CC="ccache clang" \
+    HOSTCC="ccache clang" \
+    HOSTCXX="ccache clang++" \
+    O=$WORKDIR/out \
+    CROSS_COMPILE=aarch64-linux-gnu- \
+    CROSS_COMPILE_COMPAT=arm-linux-gnueabi- \
+    -j$(nproc --all) \
+    Image $([ $STATUS == "STABLE" ] && echo "Image.lz4 Image.gz")
 ) 2>&1 | tee $WORKDIR/build.log
 set -e
 cd $WORKDIR
@@ -236,7 +259,7 @@ else
         AVBTOOL=$WORKDIR/build-tools/linux-x86/bin/avbtool
         MKBOOTIMG=$WORKDIR/mkbootimg/mkbootimg.py
         UNPACK_BOOTIMG=$WORKDIR/mkbootimg/unpack_bootimg.py
-        BOOT_SIGN_KEY_PATH=$WORKDIR/../key/verifiedboot.pem
+        BOOT_SIGN_KEY_PATH=$BUILDERDIR/key/verifiedboot.pem
         BOOTIMG_NAME="${ZIP_NAME%.zip}-boot-dummy.img"
 
         # Function
