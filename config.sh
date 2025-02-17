@@ -23,11 +23,11 @@ export KERNEL_DEFCONFIG="gki_defconfig"
 export GKI_RELEASES_REPO="https://github.com/DeliUstaTV/GKI_RELEASES_REPO"
 
 # AOSP Clang
-export USE_AOSP_CLANG="false"
+export USE_AOSP_CLANG="true"
 export AOSP_CLANG_VERSION="r547379"
 
 # Custom clang
-export USE_CUSTOM_CLANG="true"
+export USE_CUSTOM_CLANG="false"
 export CUSTOM_CLANG_SOURCE="https://gitlab.com/rvproject27/RvClang"
 export CUSTOM_CLANG_BRANCH="main/21.x"
 
