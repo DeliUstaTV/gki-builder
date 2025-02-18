@@ -39,6 +39,11 @@ on:
       default: false
       type: boolean
 
+    BUILD_LKMS:
+      description: 'Build Loadable Kernel Module (.ko)'
+      default: true
+      type: boolean
+
 jobs:
   build:
     name: Build GKI
@@ -63,11 +68,11 @@ jobs:
     - name: ccache
       uses: hendrikmuhs/ccache-action@v1.2
       with:
-        key: kernel-test-${{ github.ref_name }}
+        key: kernel-${{ github.ref_name }}
         max-size: 4G
         restore-keys: |
-          kernel-test-${{ github.ref_name }}-
-          kernel-test-
+          kernel-${{ github.ref_name }}-
+          kernel-
 
     - name: Build
       env:
@@ -87,6 +92,10 @@ jobs:
             export USE_KSU="yes"
        elif [[ ${{ inputs.KernelSU }} == "KernelSU-Next" ]]; then
             export USE_KSU_NEXT="yes"
+       fi
+
+       if [[ ${{ inputs.BUILD_LKMS }} != "true" ]]; then
+            export BUILD_LKMS="false"
        fi
 
        if [[ ${{ inputs.Clang }} == "AOSP Clang" ]]; then
