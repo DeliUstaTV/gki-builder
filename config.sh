@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Kernel name
-KERNEL_NAME="QuartiX-v2"
+KERNEL_NAME="Lighting"
 
 # GKI Version
 GKI_VERSION="android12-5.10"
@@ -25,13 +25,12 @@ DEFCONFIG_FILE="$workdir/common/arch/arm64/configs/$KERNEL_DEFCONFIG"
 # Defconfigs would be merged in the compiling processes
 DEFCONFIGS_EXAMPLE="
 vendor/xiaomi.config
-vendor/gold.config
 "
 DEFCONFIGS="
 " # Leave this empty if you don't need to merge any configs
 
 # Releases repository
-GKI_RELEASES_REPO="https://github.com/hazepynut/quartix-releases"
+GKI_RELEASES_REPO="https://github.com/DeliUstaTV/GKI_RELEASES_REPO"
 
 # AOSP Clang
 USE_AOSP_CLANG="false"
